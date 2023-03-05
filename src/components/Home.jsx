@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <>
       {/* <Menu></Menu> */}
-      <div className="h-screen">
+      <div className="h-screen ">
         <Swiper
           spaceBetween={30}
           // effect={"fade"}

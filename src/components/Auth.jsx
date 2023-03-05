@@ -1,8 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "react-modal";
 import OutsideClickHandler from "react-outside-click-handler";
+import AuthContext from "../context/AuthContext";
+
 import { api } from "../api";
+
 console.log(api);
 const customStyles = {
   content: {
@@ -17,22 +20,11 @@ const customStyles = {
 const Auth = ({ isOpen, setIsOpen }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [isError, setIsError] = useState(false);
+  const { loginUser } = useContext(AuthContext);
   const [form, setForm] = useState({ username: "", password: "", email: "" });
   const authValidate = () => {
     if (isLogin) {
-      axios
-        .post(`${api}/login`, form)
-        .then((res) => {
-          setIsOpen(false);
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-          setIsError(true);
-          setTimeout(() => {
-            setIsError(false);
-          }, 2500);
-        });
+      loginUser(form);
     } else {
       axios
         .post(`${api}/signup`, form)
