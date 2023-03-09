@@ -20,11 +20,12 @@ const customStyles = {
 const Auth = ({ isOpen, setIsOpen }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [isError, setIsError] = useState(false);
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, isOpenAuth } = useContext(AuthContext);
   const [form, setForm] = useState({ username: "", password: "", email: "" });
   const authValidate = () => {
     if (isLogin) {
       loginUser(form);
+      setIsOpen(isOpenAuth);
     } else {
       axios
         .post(`${api}/signup`, form)
@@ -46,16 +47,16 @@ const Auth = ({ isOpen, setIsOpen }) => {
         isOpen={isOpen}
       >
         {/* <div>this is the modal</div> */}
-        <div class="w-full mx-auto my-auto mt-52  max-w-xs">
+        <div className="w-full mx-auto my-auto mt-52  max-w-xs">
           <OutsideClickHandler
             onOutsideClick={() => {
               setIsOpen(!isOpen);
             }}
           >
-            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-              <div class="mb-4">
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+              <div className="mb-4">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
+                  className="block text-gray-700 text-sm font-bold mb-2"
                   for="username"
                 >
                   Correo
@@ -64,16 +65,16 @@ const Auth = ({ isOpen, setIsOpen }) => {
                   onChange={(e) =>
                     setForm({ ...form, ["email"]: e.target.value })
                   }
-                  class="shadow bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="username"
                   type="text"
                   placeholder="ejemplo@.com"
                 />
               </div>
               {!isLogin && (
-                <div class="mb-4">
+                <div className="mb-4">
                   <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-2"
                     for="username"
                   >
                     Nombre de usuario
@@ -82,16 +83,16 @@ const Auth = ({ isOpen, setIsOpen }) => {
                     onChange={(e) =>
                       setForm({ ...form, ["username"]: e.target.value })
                     }
-                    class="shadow bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="username"
                     type="text"
                     placeholder="nombre de usuario"
                   />
                 </div>
               )}
-              <div class="mb-6">
+              <div className="mb-6">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
+                  className="block text-gray-700 text-sm font-bold mb-2"
                   for="password"
                 >
                   Contraseña
@@ -100,26 +101,26 @@ const Auth = ({ isOpen, setIsOpen }) => {
                   onChange={(e) =>
                     setForm({ ...form, ["password"]: e.target.value })
                   }
-                  class="shadow bg-white appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow bg-white appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   id="password"
                   type="password"
                   placeholder="******************"
                 />
-                <p class="text-red-500 text-xs italic">
+                <p className="text-red-500 text-xs italic">
                   Please choose a password.
                 </p>
               </div>
-              <div class="flex items-center justify-between">
+              <div className="flex items-center justify-between">
                 <button
                   onClick={authValidate}
-                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="button"
                 >
                   {isLogin ? "Ingresar" : "Crear"}
                 </button>
                 <a
                   onClick={() => setIsLogin(!isLogin)}
-                  class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                  className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
                   href="#"
                 >
                   {!isLogin ? "Ingresar" : "Crear"}

@@ -4,6 +4,7 @@ import { api } from "../api";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [isOpenAuth, setIsOpenAuth] = useState(true);
   let [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
         if (res.status === 200) {
           //   console.log(res.data.success);
           setUser(res.data.success);
+          setIsOpenAuth(false);
           localStorage.setItem("user", JSON.stringify(res.data.success));
         }
         // setIsOpen(false);
@@ -28,10 +30,10 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((err) => {
         console.log(err);
-        setIsError(true);
-        setTimeout(() => {
-          setIsError(false);
-        }, 2500);
+        setIsOpenAuth(true);
+        // setTimeout(() => {
+        //   setIsError(false);
+        // }, 2500);
       });
   };
 
@@ -45,6 +47,7 @@ export const AuthProvider = ({ children }) => {
     user,
     updateData,
     logoutUser,
+    isOpenAuth,
   };
 
   return (
